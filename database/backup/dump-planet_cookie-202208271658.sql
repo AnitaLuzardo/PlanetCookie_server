@@ -24,11 +24,12 @@ DROP TABLE IF EXISTS `carritos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `carritos` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `id_usuarios` int NOT NULL,
+  `id_usuario` int NOT NULL,
   `codigo` varchar(200) NOT NULL,
   `total_compras` decimal(10,0) NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `carritos_FK` FOREIGN KEY (`id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  KEY `fk_carritos_usuarios` (`id_usuario`),
+  CONSTRAINT `fk_carritos_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -55,7 +56,8 @@ CREATE TABLE `compras_productos` (
   `total` decimal(10,0) NOT NULL,
   `cantidad` decimal(10,0) NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `compras_productos_FK` FOREIGN KEY (`id`) REFERENCES `carritos` (`id`)
+  KEY `fk_compras_carritos` (`id_carrito`),
+  CONSTRAINT `fk_compras_carritos` FOREIGN KEY (`id_carrito`) REFERENCES `carritos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -80,7 +82,8 @@ CREATE TABLE `imagenes` (
   `nombre` varchar(200) NOT NULL,
   `id_producto` int NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `imagenes_FK` FOREIGN KEY (`id`) REFERENCES `productos` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  KEY `fk_imagenes_productos` (`id_producto`),
+  CONSTRAINT `fk_imagenes_productos` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -130,8 +133,10 @@ CREATE TABLE `productos_sabores` (
   `id_producto` int NOT NULL,
   `id_sabor` int NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `productos_sabores_FK` FOREIGN KEY (`id`) REFERENCES `productos` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `productos_sabores_FK_1` FOREIGN KEY (`id`) REFERENCES `sabores` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  KEY `fk_sabores` (`id_sabor`),
+  KEY `fk_productos` (`id_producto`),
+  CONSTRAINT `fk_productos` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`),
+  CONSTRAINT `fk_sabores` FOREIGN KEY (`id_sabor`) REFERENCES `sabores` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -155,7 +160,7 @@ CREATE TABLE `roles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,6 +169,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'Administrador'),(2,'Cliente');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,8 +212,9 @@ CREATE TABLE `usuarios` (
   `pwd` varchar(100) NOT NULL,
   `id_rol` int NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `usuarios_FK` FOREIGN KEY (`id`) REFERENCES `roles` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_usuarios_roles` (`id_rol`),
+  CONSTRAINT `fk_usuarios_roles` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,6 +223,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (10,'Prueba','Probando','114455888','prueba@email.com','1234561',1),(11,'Cliente','Probando','114455888','cliente@email.com','1234561',2);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -232,4 +240,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-08-25 12:19:58
+-- Dump completed on 2022-08-27 16:58:22

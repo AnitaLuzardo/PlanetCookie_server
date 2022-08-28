@@ -1,5 +1,5 @@
 module.exports = (sequelize, dataTypes) => {
-	const alias = 'roles';
+	const alias = 'sabores';
 
 	const cols = {
 		id: {
@@ -7,17 +7,17 @@ module.exports = (sequelize, dataTypes) => {
 			primaryKey: true,
 			type: dataTypes.INTEGER
 		},
-		nombre:{
+		nombre: {
 			allowNull: false,
-			type: dataTypes.STRING,
+			type: dataTypes.STRING
 		}
 	}
-
+	
 	const config = {
 		timestamps: false
 	};
 
-	const Rol = sequelize.define(alias, cols, config)
-
-	return Rol;
+	const Sabores = sequelize.define(alias, cols, config)
+	
+	return Sabores;
 }
