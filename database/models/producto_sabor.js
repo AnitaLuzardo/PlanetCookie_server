@@ -4,8 +4,6 @@ module.exports = (sequelize, dataTypes) => {
 	const cols = {
 		id_producto: {
 			type: dataTypes.INTEGER,
-			onDelete: 'cascade',
-			onUpdate: 'cascade'
 		},
 		id_sabor: {
 			type: dataTypes.INTEGER

@@ -17,7 +17,7 @@ module.exports = (sequelize, dataTypes) => {
 		timestamps: false
 	};
 
-	const Sabores = sequelize.define(alias, cols, config)
+	const Sabor = sequelize.define(alias, cols, config)
 	
-	return Sabores;
+	return Sabor;
 }

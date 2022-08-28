@@ -1,5 +1,5 @@
-const saborModel = require('./sabor');
 const productoSaborModel = require('./producto_sabor');
+const saboresModel = require ('./sabor')
 
 module.exports = (sequelize, dataTypes) => {
 	const alias = 'productos';
@@ -29,8 +29,8 @@ module.exports = (sequelize, dataTypes) => {
 	};
 
 	const Producto = sequelize.define(alias, cols, config);
-	const Sabor = saborModel(sequelize, dataTypes);
-	const ProductoSabores = productoSaborModel(sequelize, dataTypes)
+	const ProductoSabores = productoSaborModel(sequelize, dataTypes);
+	const Sabor = saboresModel(sequelize, dataTypes);
 
 	Producto.belongsToMany(Sabor, {
 		through: ProductoSabores,
