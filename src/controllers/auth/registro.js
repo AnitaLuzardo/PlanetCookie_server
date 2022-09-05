@@ -6,6 +6,15 @@ module.exports = {
     const userNew = req.body
       
     try {
+      const userInDb = await db.usuarios.findOne({ 
+        where: {
+          email: userNew.email
+        } })
+
+      if(userInDb) {
+        return res.status(409).json({ message: 'El email ya esta registrado' });
+      };
+
       const salt = bcrypt.genSaltSync(10);
       userNew.pwd = bcrypt.hashSync(req.body.pwd.trim(), salt);
 
