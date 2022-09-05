@@ -4,6 +4,8 @@ const db = require('../../../database/models');
 module.exports = {
   register: async(req, res) => {
     const userNew = req.body
+
+    delete userNew.confirmarPassword;
       
     try {
       const userInDb = await db.usuarios.findOne({ 

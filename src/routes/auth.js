@@ -1,6 +1,7 @@
 const express = require('express');
 const authRouter = express.Router();
-const controllers = require('../controllers/auth/registro');
+const regisController = require('../controllers/auth/registro');
+const loginController = require('../controllers/auth/login');
 const { validateFields } = require('../middleware/validateFields');
 const {check} =  require('express-validator');
 
@@ -25,6 +26,16 @@ authRouter.post('/register', [
     .notEmpty().withMessage('Debe confirmar la contraseña')
     .custom((value, {req}) => (value === req.body.pwd)).withMessage('Las contraseñas no coinciden'),
   validateFields
-], controllers.register)
+], regisController.register);
+
+//Login
+authRouter.post('/login', [
+  check('email')
+    .not().isEmpty().withMessage('Por favor ingrese un email')
+    .isEmail().withMessage('Por favor ingrese un email válido'),
+  check('pwd')
+    .notEmpty().withMessage('La contraseña es requerida'),
+    validateFields
+], loginController.login)
 
 module.exports = authRouter;
