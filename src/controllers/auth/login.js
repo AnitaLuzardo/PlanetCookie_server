@@ -1,5 +1,6 @@
 const bcryptjs = require('bcryptjs');
 const db = require('../../../database/models'); 
+const generateToken = require('../../functions/generateToken')
 
 module.exports = {
   login: async (req, res) => {
@@ -15,7 +16,7 @@ module.exports = {
       if(!user) {
         return res.status(400).json({
           ok: false,
-          message: 'Los datos no coinciden, verifique sus datos de acceso'
+          message: 'Los datos no coinciden'
         })
       }
 
@@ -23,7 +24,7 @@ module.exports = {
       if(!pwdEquals) {
         return res.status(401).json({
           ok: false,
-          message: 'Contraseña incorrecta'
+          message: 'Datos incorrectos'
         }); 
       }
 
@@ -32,11 +33,12 @@ module.exports = {
         apellido: user.apellido,
         email: user.email,
         telefono: user.telefono,
-        roleId: user.id_rol
+        roleId: user.id_rol,
+        token: generateToken(user.id)
       };
 
       res.status(200).json(userLogged);
-    } catch (error) {
+    } catch (e) {
       console.log('ERROOOOOOOR:', e)
         res.sendStatus(500);
     }

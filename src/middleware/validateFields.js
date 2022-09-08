@@ -8,7 +8,6 @@ const validateFields = (req, res, next) => {
       message: result.errors[0].msg, errors: result.errors
     });
   }
-
   next();
 };
 

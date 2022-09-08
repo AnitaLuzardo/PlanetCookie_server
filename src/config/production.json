@@ -1,0 +1,9 @@
+{
+    "nombre" : "Api Rest Express",
+    "configDB" : {
+
+    },
+    "configToken": {
+        "SEED":"secret"
+    }
+}
