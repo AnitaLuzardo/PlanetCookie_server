@@ -36,6 +36,6 @@ authRouter.post('/login', [
   check('pwd')
     .notEmpty().withMessage('La contraseña es requerida'),
     validateFields
-], loginController.login)
+], loginController.login);
 
 module.exports = authRouter;
