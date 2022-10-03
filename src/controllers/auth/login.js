@@ -1,6 +1,6 @@
 const bcryptjs = require('bcryptjs');
 const db = require('../../../database/models'); 
-const generateToken = require('../../functions/generateToken')
+const generateToken = require('../../functions/generateToken');
 
 module.exports = {
   login: async (req, res) => {
