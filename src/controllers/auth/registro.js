@@ -5,7 +5,7 @@ module.exports = {
   register: async(req, res) => {
     const userNew = req.body
 
-    delete userNew.confirmarPassword;
+  delete userNew.confirmarPassword;
       
     try {
       const userInDb = await db.usuarios.findOne({ 
@@ -21,6 +21,7 @@ module.exports = {
       userNew.pwd = bcrypt.hashSync(req.body.pwd.trim(), salt);
 
       await db.usuarios.create(userNew);
+
       console.log('Creando nuevo usuario', userNew)
       res.json(userNew)
     } catch (e) {
