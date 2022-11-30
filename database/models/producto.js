@@ -18,7 +18,7 @@ module.exports = (sequelize, dataTypes) => {
         allowNull: false,
         type: dataTypes.DECIMAL
       },
-      descrippcion: {
+      descripcion: {
         allowNull: false,
         type: dataTypes.TEXT
       }
