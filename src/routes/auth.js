@@ -8,13 +8,13 @@ const {check} =  require('express-validator');
 
 //Register
 authRouter.post('/register', [
-  check('nombre')
+  check('name')
     .notEmpty().withMessage('Por favor ingrese su nombre')
     .isLength({min: 2}).withMessage('El nombre debe tener mínimo 2 caracteres'),
-  check('apellido')
+  check('lastName')
     .notEmpty().withMessage('Por favor ingrese su apellido')
     .isLength({min: 2}).withMessage('El apellido debe tener mínimo 2 caracteres'),
-  check('telefono')
+  check('phone')
     .notEmpty().withMessage('el telefono es requerido')
     .isNumeric().withMessage('Solo se aceptan números'),
   check('email')
@@ -26,6 +26,7 @@ authRouter.post('/register', [
   check('confirmarPassword')
     .notEmpty().withMessage('Debe confirmar la contraseña')
     .custom((value, {req}) => (value === req.body.pwd)).withMessage('Las contraseñas no coinciden'),
+    
   validateFields
 ], regisController.register);
 

@@ -3,6 +3,7 @@ const db = require('../../../database/models');
 allUsers = async (req, res) => {
   try {
     const usersDb = await db.usuarios.findAll({
+      raw: true,
       attributes: { exclude: ['pwd'] }
     })
     console.log('Lista de usuarios', usersDb)

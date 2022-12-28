@@ -14,15 +14,15 @@ module.exports= (sequelize, dataTypes) => {
         allowNull: false,
         type: dataTypes.INTEGER
       },
-      nombre: {
+      name: {
         allowNull: false,
         type: dataTypes.STRING
       },
-      apellido: {
+      lastName: {
         allowNull: false,
         type: dataTypes.STRING
       },
-      telefono: {
+      phone: {
         allowNull: false,
         type: dataTypes.STRING,
       },
